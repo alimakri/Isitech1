@@ -118,3 +118,4 @@ FROM
 	RIGHT OUTER JOIN EcurieGrandPrix ON Ecurie.Id = EcurieGrandPrix.Ecurie 
 	RIGHT OUTER JOIN GrandPrix ON EcurieGrandPrix.GrandPrix = GrandPrix.Id
 
+select newId() -- C00C22B5-9434-4D18-94C1-71B636C96AA0

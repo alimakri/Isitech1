@@ -59,3 +59,43 @@ select * from personne full outer join ville on personne.Ville = ville.Id
 --select * from ville inner join personne on personne.Ville = ville.Id
 
 --select * from ville cross join personne 
+
+
+--vache - Mammifère
+--cheval - Mammifère
+--Truite - poisson
+--Dauphin - Mammifère
+-- x      - Primate
+--Ornithorynque - x
+
+select 
+* 
+into animal 
+from
+(
+select 'Vache' nom, 1 Espece
+Union ALL
+select 'Cheval' nom, 1 Espece
+Union ALL
+select 'Truite' nom, 2 Espece
+Union ALL
+select 'Dauphin' nom, 1 Espece
+Union ALL
+select 'Orni' nom, NULL
+) t
+
+select 
+* 
+into Espece 
+from
+(
+select 1 Id, 'Mammifere' Libelle
+Union ALL
+select 2, 'Poisson'
+Union ALL
+select 3, 'Primate'
+) t
+
+select * from animal
+select * from Espece
+select * from animal full outer join Espece on animal.Espece = Espece.Id
