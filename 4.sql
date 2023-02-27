@@ -103,5 +103,18 @@ FROM     Ecurie INNER JOIN
                   GrandPrix ON EcurieGrandPrix.GrandPrix = GrandPrix.Id
 WHERE  (Ecurie.Nom = N'Renault')
 
+-- Test 3 : Grand prix d'Hamilton
+SELECT GrandPrix.Lieu
+FROM     EcurieGrandPrix INNER JOIN
+                  GrandPrix ON EcurieGrandPrix.GrandPrix = GrandPrix.Id INNER JOIN
+                  Pilote ON EcurieGrandPrix.Ecurie = Pilote.Ecurie
+WHERE  (Pilote.Nom = N'Lewis Hamilton')
 
+-- Test 4 : liste des grand prix écurie
+SELECT 
+	Ecurie.Nom, GrandPrix.Lieu
+FROM     
+	Ecurie 
+	RIGHT OUTER JOIN EcurieGrandPrix ON Ecurie.Id = EcurieGrandPrix.Ecurie 
+	RIGHT OUTER JOIN GrandPrix ON EcurieGrandPrix.GrandPrix = GrandPrix.Id
 
