@@ -12,8 +12,8 @@ CREATE DATABASE Formule1 ON  PRIMARY
 	SIZE = 8192KB , 
 	FILEGROWTH = 65536KB 
 	)
-USE [Formule1]
-GO
+go
+USE [Formule1];
 CREATE TABLE [dbo].[Ecurie]
 (
 	[Id] [bigint] IDENTITY(1,1) NOT NULL,
@@ -23,7 +23,6 @@ CREATE TABLE [dbo].[Ecurie]
 	[Id] ASC
 	)
 ) 
-GO
 CREATE TABLE [dbo].[EcurieGrandPrix](
 	[Id] [bigint] IDENTITY(1,1) NOT NULL,
 	[Ecurie] [bigint] NOT NULL,
@@ -33,7 +32,6 @@ CREATE TABLE [dbo].[EcurieGrandPrix](
 	[Id] ASC
 	)
 ) 
-GO
 CREATE TABLE [dbo].[GrandPrix]
 (
 	[Id] [bigint] IDENTITY(1,1) NOT NULL,
@@ -43,7 +41,6 @@ CREATE TABLE [dbo].[GrandPrix]
 	[Id] ASC
 	)
 )
-GO
 CREATE TABLE [dbo].[Pilote](
 	[Id] [bigint] IDENTITY(1,1) NOT NULL,
 	[Nom] [nvarchar](max) NOT NULL,
@@ -54,8 +51,7 @@ CREATE TABLE [dbo].[Pilote](
 	(
 	[Id] ASC
 	)
-) 
-GO
+);
 ALTER TABLE [dbo].[Pilote] ADD  CONSTRAINT [DF_Pilote_Actif]  DEFAULT ((0)) FOR [Actif]
 GO
 -- Clés étrangères 
