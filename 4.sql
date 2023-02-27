@@ -67,7 +67,33 @@ ALTER TABLE [dbo].[Pilote]  WITH CHECK ADD  CONSTRAINT [FK_Pilote_Ecurie] FOREIG
 ALTER TABLE [dbo].[Pilote] CHECK CONSTRAINT [FK_Pilote_Ecurie]
 
 
+insert Ecurie (Nom) values
+	('Renault'), 
+	('Mercedes'), 
+	('Alfa Romeo'), 
+	('Ferrari')
+insert Pilote (Nom, Ecurie, Numero, Actif) values
+	('Lewis Hamilton', 2, '44', 1),
+	('Charles Leclerc', 4, '12', 1),
+	('George Russell', 2, '33', 1),
+	('Carlos Sainz Jr.', 4, '55', 1),
+	('Valtteri Bottas', 3, '47', 1),
+	('Zhou Guanyu', 3, '14', 1)
+insert GrandPrix (Lieu) values('Monte Carlo'), ('Bahrein'), ('Australie'), ('Espagne')
+insert EcurieGrandPrix (Ecurie, GrandPrix) values
+	(1,1),
+	(2,1),
+	(3,1),
+	(1,2),
+	(2,2),
+	(3,3),
+	(4,3)
 
+SELECT Ecurie.Nom
+FROM     Ecurie INNER JOIN
+                  EcurieGrandPrix ON Ecurie.Id = EcurieGrandPrix.Ecurie INNER JOIN
+                  GrandPrix ON EcurieGrandPrix.GrandPrix = GrandPrix.Id
+WHERE  (GrandPrix.Lieu = N'Monte Carlo')
 
 
 
