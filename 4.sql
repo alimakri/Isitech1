@@ -89,11 +89,19 @@ insert EcurieGrandPrix (Ecurie, GrandPrix) values
 	(3,3),
 	(4,3)
 
+-- Test 1 : écuries au grand prix de Monte Carlo
 SELECT Ecurie.Nom
 FROM     Ecurie INNER JOIN
                   EcurieGrandPrix ON Ecurie.Id = EcurieGrandPrix.Ecurie INNER JOIN
                   GrandPrix ON EcurieGrandPrix.GrandPrix = GrandPrix.Id
 WHERE  (GrandPrix.Lieu = N'Monte Carlo')
+
+-- Test 2: Grand Prix pour Renault
+SELECT GrandPrix.Lieu
+FROM     Ecurie INNER JOIN
+                  EcurieGrandPrix ON Ecurie.Id = EcurieGrandPrix.Ecurie INNER JOIN
+                  GrandPrix ON EcurieGrandPrix.GrandPrix = GrandPrix.Id
+WHERE  (Ecurie.Nom = N'Renault')
 
 
 
