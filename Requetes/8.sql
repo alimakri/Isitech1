@@ -111,3 +111,8 @@ HAVING
 	Year(orderDate)=2013
 ORDER BY 
 	SUM(OrderQty * UnitPrice) desc
+
+-- CA par magasin et internet par année : nom magasin (ou internet), Année, CA
+--select SalesPersonID, Year(OrderDate) from Sales.SalesOrderHeader
+--select SalesPersonID, Name from Sales.Store
+--select SalesOrderID, UnitPrice, OrderQty from Sales.SalesOrderDetail
