@@ -53,11 +53,12 @@ Order by
 
 -- CA par année
 select 
-	h.OrderDate DateCommande, h.SalesOrderNumber ReferenceCommande, d.SalesOrderID, SUM(OrderQty * UnitPrice) montant
+	YEAR(h.OrderDate) Annee, SUM(OrderQty * UnitPrice) montant
 from 
 	Sales.SalesOrderDetail d 
 	inner join Sales.SalesOrderHeader h on d.SalesOrderID = h.SalesOrderID
 Group by
-	d.SalesOrderID, h.OrderDate, h.SalesOrderNumber
-Order by 
-	DateCommande
+	YEAR(h.OrderDate)
+
+-- CA par cat et sous cat : Nom cat, nom souscat, montant
+select * from Sales.SalesOrderDetail
