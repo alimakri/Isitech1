@@ -139,3 +139,68 @@ insert Vente.Dbo.Produit (Id, Libelle, Prix)
 
 select * from Vente.Dbo.Produit
 
+-- Remplir la table Vente.dbo.Commande à partir de la table Sales.SalesOrderHeader
+delete Vente.dbo.Commande
+insert into Vente.dbo.Commande (Id, Numero, DateCommande)
+	select NEWID(), h.SalesOrderNumber, OrderDate
+	from Sales.SalesOrderHeader h
+select * from Vente.dbo.Commande
+
+-- Remplir la table Vente.dbo.CommandeDetails à partir de la table Sales.SalesOrderDetails
+insert into Vente.dbo.CommandeDetails (Id, Commande, Produit, Qte, Prix) 
+	select 
+		NEWID(), vc.Id, vp.Id, d.OrderQty, d.UnitPrice
+	from 
+		Sales.SalesOrderDetail d
+		inner join Sales.SalesOrderHeader h on d.SalesOrderID = h.SalesOrderID
+		inner join Production.Product p on d.ProductID = p.ProductID
+		inner join Production.ProductSubcategory s on p.ProductSubcategoryID = s.ProductSubcategoryID
+		inner join Production.ProductCategory c on s.ProductCategoryID = c.ProductCategoryID
+		inner join Vente.dbo.Commande vc on  h.SalesOrderNumber COLLATE DATABASE_DEFAULT = vc.Numero 
+		inner join Vente.dbo.Produit vp on vp.Libelle = p.Name COLLATE DATABASE_DEFAULT
+	Where
+		c.name='Clothing'
+
+-- Vérification : CA total dans la BD Vente (Clothing dans Adv 2 141 507,0245)
+-- 2 141 353.77000
+select SUM(Qte* Prix) from Vente.dbo.CommandeDetails
+
+-- CA (ordre desc) par cat avec numérotation
+select 
+	ROW_NUMBER() OVER(ORDER BY SUM(OrderQty * UnitPrice) desc) ordre,
+	c.Name Cat, SUM(OrderQty * UnitPrice) montant 
+from 
+	Sales.SalesOrderDetail d
+	inner join Production.Product p on d.ProductID = p.ProductID
+	inner join Production.ProductSubcategory s on p.ProductSubcategoryID = s.ProductSubcategoryID
+	inner join Production.ProductCategory c on c.ProductCategoryID = s.ProductCategoryID
+Group by
+	c.Name
+Order by 
+	montant desc
+
+-- Produits et qté vendus par les 3 meilleurs vendeurs
+select 
+	d.ProductID, h.SalesPersonID 
+from 
+	Sales.SalesOrderDetail d
+	inner join Sales.SalesOrderHeader h on h.SalesOrderID = d.SalesOrderID
+Where 
+	h.SalesPersonID in 
+	(
+	select TOP 3
+		p.BusinessEntityID
+	from 
+		Sales.SalesOrderHeader h
+		inner join Sales.SalesOrderDetail d on d.SalesOrderID = h.SalesOrderID
+		inner join Sales.SalesPerson sp on sp.BusinessEntityID = h.SalesPersonID
+		inner join HumanResources.Employee e on e.BusinessEntityID = sp.BusinessEntityID
+		inner join Person.Person p on p.BusinessEntityID = e.BusinessEntityID
+	where 
+		OnlineOrderFlag=0 
+	GROUP BY
+		Year(orderDate), p.BusinessEntityID
+	ORDER BY 
+		SUM(OrderQty * UnitPrice) desc
+	)
+
