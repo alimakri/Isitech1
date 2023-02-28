@@ -60,5 +60,54 @@ from
 Group by
 	YEAR(h.OrderDate)
 
--- CA par cat et sous cat : Nom cat, nom souscat, montant
-select * from Sales.SalesOrderDetail
+-- CA par cat et sous cat : Nom cat, nom souscat, montant : trié par cat/sous cat
+select 
+	c.Name Cat, s.Name SousCat, SUM(OrderQty * UnitPrice) montant 
+from 
+	Sales.SalesOrderDetail d
+	inner join Production.Product p on d.ProductID = p.ProductID
+	inner join Production.ProductSubcategory s on p.ProductSubcategoryID = s.ProductSubcategoryID
+	inner join Production.ProductCategory c on c.ProductCategoryID = s.ProductCategoryID
+Group by
+	c.Name, s.Name
+Order by
+	c.Name, s.Name
+
+-- Liste des employés : id, Nom, prenom, dateEmbauche, TypePersonne
+--select * from HumanResources.Employee
+--select * from Person.Person where PersonType='EM'
+select 
+	p.BusinessEntityID, p.LastName, p.FirstName, e.HireDate, p.PersonType 
+from 
+	HumanResources.Employee e 
+	inner join Person.Person p on e.BusinessEntityID = p.BusinessEntityID
+
+-- Liste des types de personnes
+--SC = Store Contact, 
+--IN = Individual (retail) customer, 
+--SP = Sales person, 
+--EM = Employee (non-sales), 
+--VC = Vendor contact, 
+--GC = General contact
+select distinct PersonType from Person.Person 
+
+-- meilleur vendeur en 2013 : nom
+--select SalesOrderID, SalesPersonID from Sales.SalesOrderHeader -- 31 465 commandes
+--select SalesOrderID, SalesPersonID from Sales.SalesOrderHeader where OnlineOrderFlag=0 -- 3 806 commandes
+
+select TOP 1
+	p.LastName
+from 
+	Sales.SalesOrderHeader h
+	inner join Sales.SalesOrderDetail d on d.SalesOrderID = h.SalesOrderID
+	inner join Sales.SalesPerson sp on sp.BusinessEntityID = h.SalesPersonID
+	inner join HumanResources.Employee e on e.BusinessEntityID = sp.BusinessEntityID
+	inner join Person.Person p on p.BusinessEntityID = e.BusinessEntityID
+where 
+	OnlineOrderFlag=0 
+GROUP BY
+	Year(orderDate), p.LastName
+HAVING
+	Year(orderDate)=2013
+ORDER BY 
+	SUM(OrderQty * UnitPrice) desc
