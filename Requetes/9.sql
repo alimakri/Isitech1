@@ -141,3 +141,5 @@ DECLARE @data xml =
       environment.</description>
    </book>
 </catalog>'
+
+-- Liste des auteurs
