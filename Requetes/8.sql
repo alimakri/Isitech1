@@ -38,6 +38,26 @@ from
 Group by
 	c.Name
 
--- Liste des commandes : date, Reference, montant
+-- Liste des commandes : date, Reference, montant : trié par date asc
 --select OrderDate, SalesOrderNumber from Sales.SalesOrderHeader
 --select SalesOrderID, OrderQty, UnitPrice from Sales.SalesOrderDetail
+select 
+	h.OrderDate DateCommande, h.SalesOrderNumber ReferenceCommande, d.SalesOrderID, SUM(OrderQty * UnitPrice) montant
+from 
+	Sales.SalesOrderDetail d 
+	inner join Sales.SalesOrderHeader h on d.SalesOrderID = h.SalesOrderID
+Group by
+	d.SalesOrderID, h.OrderDate, h.SalesOrderNumber
+Order by 
+	DateCommande
+
+-- CA par année
+select 
+	h.OrderDate DateCommande, h.SalesOrderNumber ReferenceCommande, d.SalesOrderID, SUM(OrderQty * UnitPrice) montant
+from 
+	Sales.SalesOrderDetail d 
+	inner join Sales.SalesOrderHeader h on d.SalesOrderID = h.SalesOrderID
+Group by
+	d.SalesOrderID, h.OrderDate, h.SalesOrderNumber
+Order by 
+	DateCommande
