@@ -1,27 +1,26 @@
 use AdventureWorks2017;
 -- XML
-select * from HumanResources.JobCandidate
+--select * from HumanResources.JobCandidate
 
-DECLARE @xml XML = '
-<root>
-	<person name="Pierre">
-		<age>30</age>
-	</person>
-	<person name="Sophie">
-		<age>25</age>
-	</person>
-</root>'
+--DECLARE @xml XML = '
+--<root>
+--	<person name="Pierre">
+--		<age>30</age>
+--	</person>
+--	<person name="Sophie">
+--		<age>25</age>
+--	</person>
+--</root>'
 
-SELECT
-    Person.value('@name[1]', 'VARCHAR(50)') AS Name,
-    Person.value('age[1]', 'INT') AS Age
-FROM
-    @xml.nodes('/root/person') AS People(Person)
+--SELECT
+--    Person.value('@name[1]', 'VARCHAR(50)') AS Name,
+--    Person.value('age[1]', 'INT') AS Age
+--FROM
+--    @xml.nodes('/root/person') AS People(Person)
 
 -- Exercice
 DECLARE @data xml = 
 '
-<?xml version="1.0"?>
 <catalog>
    <book id="bk101">
       <author>Gambardella, Matthew</author>
@@ -143,3 +142,26 @@ DECLARE @data xml =
 </catalog>'
 
 -- Liste des auteurs
+--SELECT distinct
+--    Person.value('author[1]', 'nvarchar(MAX)') AS Auteur
+--FROM
+--    @data.nodes('/catalog/book') AS People(Person)
+
+-- Liste des livres de genre Fantasy
+--SELECT 
+--    N.value('title[1]', 'nvarchar(MAX)') Auteur,
+--    N.value('genre[1]', 'nvarchar(MAX)') genre
+--FROM
+--    @data.nodes('/catalog/book') AS T(N)
+--Where 
+--	N.value('genre[1]', 'nvarchar(MAX)')='Fantasy'
+
+-- Liste des livres contenant le mot Microsoft dans la description
+SELECT 
+    N.value('title[1]', 'nvarchar(MAX)') Auteur,
+    N.value('description[1]', 'nvarchar(MAX)') description
+FROM
+    @data.nodes('/catalog/book') AS T(N)
+WHERE 
+	N.value('description[1]', 'nvarchar(MAX)') like '%Microsoft%'
+
