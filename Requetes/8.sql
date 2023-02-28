@@ -128,3 +128,14 @@ from
 GROUP BY
 	st.Name, YEAR(h.OrderDate)
 ORDER BY YEAR(h.OrderDate), st.Name 
+
+-- Remplir la table Vente.dbo.Produit avec les vêtements de la table Production.Product
+delete Vente.dbo.Produit
+insert Vente.Dbo.Produit (Id, Libelle, Prix)
+	select NEWID(), p.Name, ListPrice from Production.Product p
+	inner join Production.ProductSubcategory s on p.ProductSubcategoryID = s.ProductSubcategoryID
+	inner join Production.ProductCategory c on s.ProductCategoryID = c.ProductCategoryID
+	where c.Name = 'Clothing'
+
+select * from Vente.Dbo.Produit
+
