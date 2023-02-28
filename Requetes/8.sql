@@ -112,7 +112,19 @@ HAVING
 ORDER BY 
 	SUM(OrderQty * UnitPrice) desc
 
--- CA par magasin et internet par année : nom magasin (ou internet), Année, CA
+-- CA par magasin et internet par année : nom magasin (ou internet), Ville, Année, CA
 --select SalesPersonID, Year(OrderDate) from Sales.SalesOrderHeader
 --select SalesPersonID, Name from Sales.Store
 --select SalesOrderID, UnitPrice, OrderQty from Sales.SalesOrderDetail
+--vStoreWithAddresses
+select 
+	ISNULL(st.Name, '(Internet)') Magasin, 
+	SUM(UnitPrice * OrderQty) montant, 
+	YEAR(h.OrderDate) Annee 
+from 
+	Sales.SalesOrderDetail d
+	left outer join Sales.SalesOrderHeader h on d.SalesOrderID = h.SalesOrderID
+	left outer join Sales.Store st on h.SalesPersonID = st.SalesPersonID
+GROUP BY
+	st.Name, YEAR(h.OrderDate)
+ORDER BY YEAR(h.OrderDate), st.Name 
