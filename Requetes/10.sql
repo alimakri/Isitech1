@@ -2,6 +2,13 @@ use AdventureWorks2017
 GO
 ALTER PROC ListeProduits(@couleur nvarchar(50)=null, @seuil int=null, @type char(2)=null)
 AS
+IF @couleur = 'Rouge'
+  BEGIN
+  SET @couleur='red'
+  END
+ELSE IF @couleur = 'Noir'
+	SET @couleur='black'
+
 select 
 	ProductID, ProductNumber, Color, ListPrice 
 from 
@@ -19,3 +26,4 @@ Exec ListeProduits 'Red'
 Exec ListeProduits
 Exec ListeProduits @couleur='Red', @type='BK'
 Exec ListeProduits @seuil=2000, @type='BK'
+Exec ListeProduits 'noir', 1000, 'BK'
