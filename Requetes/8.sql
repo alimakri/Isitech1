@@ -179,9 +179,9 @@ Group by
 Order by 
 	montant desc
 
--- Produits et qté vendus par les 3 meilleurs vendeurs
+-- Qté de produits vendus par les 3 meilleurs vendeurs
 select 
-	d.ProductID, h.SalesPersonID 
+	h.SalesPersonID, COUNT(d.ProductID) n  
 from 
 	Sales.SalesOrderDetail d
 	inner join Sales.SalesOrderHeader h on h.SalesOrderID = d.SalesOrderID
@@ -203,4 +203,6 @@ Where
 	ORDER BY 
 		SUM(OrderQty * UnitPrice) desc
 	)
+GROUP BY
+	h.SalesPersonID
 
