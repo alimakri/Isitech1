@@ -86,4 +86,6 @@ where
 	(@type is null or ProductNumber like @type + '%')
 GO
 Exec ListeProduitsXML '<params couleur="Red" seuil="1000" type="BK"></params>'
---Exec ListeProduitsXML '<data t="BK"><c>Red</c><s>1000</s></data>'
+Exec ListeProduitsXML '<params></params>'
+Exec ListeProduitsXML '<params type="BK"></params>'
+Exec ListeProduitsXML '<params couleur="Red" seuil="500"></params>'
