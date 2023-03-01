@@ -1,0 +1,13 @@
+D:\IsiTech\Depot\LinqDemo\LinqDemo\bin\Debug\LinqDemo.exe.config
+D:\IsiTech\Depot\LinqDemo\LinqDemo\bin\Debug\LinqDemo.exe
+D:\IsiTech\Depot\LinqDemo\LinqDemo\bin\Debug\LinqDemo.pdb
+D:\IsiTech\Depot\LinqDemo\LinqDemo\bin\Debug\EntityFramework.dll
+D:\IsiTech\Depot\LinqDemo\LinqDemo\bin\Debug\EntityFramework.SqlServer.dll
+D:\IsiTech\Depot\LinqDemo\LinqDemo\bin\Debug\EntityFramework.xml
+D:\IsiTech\Depot\LinqDemo\LinqDemo\bin\Debug\EntityFramework.SqlServer.xml
+D:\IsiTech\Depot\LinqDemo\LinqDemo\bin\Debug\fr\EntityFramework.resources.dll
+D:\IsiTech\Depot\LinqDemo\LinqDemo\obj\Debug\LinqDemo.csproj.AssemblyReference.cache
+D:\IsiTech\Depot\LinqDemo\LinqDemo\obj\Debug\LinqDemo.csproj.CoreCompileInputs.cache
+D:\IsiTech\Depot\LinqDemo\LinqDemo\obj\Debug\LinqDemo.csproj.CopyComplete
+D:\IsiTech\Depot\LinqDemo\LinqDemo\obj\Debug\LinqDemo.exe
+D:\IsiTech\Depot\LinqDemo\LinqDemo\obj\Debug\LinqDemo.pdb
