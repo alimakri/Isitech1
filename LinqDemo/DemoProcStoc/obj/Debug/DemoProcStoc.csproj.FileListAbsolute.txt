@@ -1,0 +1,6 @@
+D:\IsiTech\Depot\LinqDemo\DemoProcStoc\bin\Debug\DemoProcStoc.exe.config
+D:\IsiTech\Depot\LinqDemo\DemoProcStoc\bin\Debug\DemoProcStoc.exe
+D:\IsiTech\Depot\LinqDemo\DemoProcStoc\bin\Debug\DemoProcStoc.pdb
+D:\IsiTech\Depot\LinqDemo\DemoProcStoc\obj\Debug\DemoProcStoc.csproj.CoreCompileInputs.cache
+D:\IsiTech\Depot\LinqDemo\DemoProcStoc\obj\Debug\DemoProcStoc.exe
+D:\IsiTech\Depot\LinqDemo\DemoProcStoc\obj\Debug\DemoProcStoc.pdb
