@@ -66,4 +66,28 @@ Where
 	)
 GROUP BY
 	h.SalesPersonID
-
+go
+WITH MeilleursVendeur(id) as
+(
+	select TOP 3
+		p.BusinessEntityID
+	from 
+		Sales.SalesOrderHeader h
+		inner join Sales.SalesOrderDetail d on d.SalesOrderID = h.SalesOrderID
+		inner join Sales.SalesPerson sp on sp.BusinessEntityID = h.SalesPersonID
+		inner join HumanResources.Employee e on e.BusinessEntityID = sp.BusinessEntityID
+		inner join Person.Person p on p.BusinessEntityID = e.BusinessEntityID
+	where 
+		OnlineOrderFlag=0 
+	GROUP BY
+		Year(orderDate), p.BusinessEntityID
+)
+select 
+	h.SalesPersonID, COUNT(d.ProductID) n  
+from 
+	Sales.SalesOrderDetail d
+	inner join Sales.SalesOrderHeader h on h.SalesOrderID = d.SalesOrderID
+Where 
+	h.SalesPersonID in (select id from MeilleursVendeur)
+GROUP BY
+	h.SalesPersonID
