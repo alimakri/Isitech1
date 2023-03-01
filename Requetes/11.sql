@@ -51,7 +51,20 @@ DECLARE @seuil nvarchar(50)
 DECLARE @type nvarchar(50)
 
 -- ****
+-- indications : select @seuil=1000
+--				 SELECT
+--				    Person.value('@name[1]', 'VARCHAR(50)') AS Name,
+--				    Person.value('age[1]', 'INT') AS Age
+--				 FROM
+--				    @xml.nodes('/root/person') AS People(Person)
+-- '<params couleur="Red" seuil="1000" type="BK"></params>'
 
+SELECT
+	@couleur = Person.value('@couleur[1]', 'VARCHAR(50)'),
+	@seuil = Person.value('@seuil[1]', 'int'),
+	@type = Person.value('@type[1]', 'VARCHAR(50)')
+FROM
+	@data.nodes('/params') AS People(Person)
 -- ****
 
 IF @couleur = 'Rouge'
