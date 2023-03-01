@@ -43,10 +43,22 @@ GO
 
 select * from Produit order by Libelle
 select * from Commande c inner join CommandeDetails d on d.Commande = c.Id
-where d.Produit in ('4F8B4BCF-2507-4F7B-8405-CA41FDC74911', 'F189CEE0-4901-4F76-B8E0-C4EFEF6E2BC9')
+where d.Produit in ('DD96FB64-AD3E-41AE-89F6-5A6A294CB15F', 
+				    '9484172F-F947-4D49-A3A5-09CDB4321995')
 
-select * from commande  where id='2F9B7FC3-6B3A-40B6-A5C2-145F127CCA19'
-select * from CommandeDetails where Commande='2F9B7FC3-6B3A-40B6-A5C2-145F127CCA19'
+select * from commande  where id='4A4A0B86-65BF-4F68-AC03-DD84CEB67ABD'
+select * from CommandeDetails 
+inner join Produit on CommandeDetails.Produit=Produit.id
+where Commande='4A4A0B86-65BF-4F68-AC03-DD84CEB67ABD'
 
 -- 21 394
 delete commande where Numero like '2023%'
+
+delete CommandeDetails where id='4A4A0B86-65BF-4F68-AC03-DD84CEB67ABD'
+delete commande where id='2F9B7FC3-6B3A-40B6-A5C2-145F127CCA19'
+
+
+select * from Produit where prix=333.33
+
+
+select * from Commande order by DateCommande desc
