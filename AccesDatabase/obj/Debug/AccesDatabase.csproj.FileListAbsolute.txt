@@ -1,0 +1,7 @@
+D:\IsiTech\Depot\AccesDatabase\bin\Debug\AccesDatabase.exe.config
+D:\IsiTech\Depot\AccesDatabase\bin\Debug\AccesDatabase.exe
+D:\IsiTech\Depot\AccesDatabase\bin\Debug\AccesDatabase.pdb
+D:\IsiTech\Depot\AccesDatabase\obj\Debug\AccesDatabase.csproj.AssemblyReference.cache
+D:\IsiTech\Depot\AccesDatabase\obj\Debug\AccesDatabase.csproj.CoreCompileInputs.cache
+D:\IsiTech\Depot\AccesDatabase\obj\Debug\AccesDatabase.exe
+D:\IsiTech\Depot\AccesDatabase\obj\Debug\AccesDatabase.pdb
