@@ -2,31 +2,48 @@
 -- https://www.codeproject.com/Articles/28429/Basics-of-Using-a-NET-Assembly-in-MS-SQLServer-Use
 use master
 go
+-- Etape 1 : Configurer SQL Server pour accepter le .Net
 sp_configure 'clr enabled', 1
 GO
 RECONFIGURE
 GO
-CREATE ASYMMETRIC KEY CLRDateConvertionKey FROM EXECUTABLE FILE = 'D:\Cours\CoursSQL\CLRInSQLServer\CLRInSQLServer\bin\Debug\CLRInSQLServer.dll';
+
+-- Etape 2 : 
+CREATE ASYMMETRIC KEY CLRDateConvertionKey FROM EXECUTABLE FILE = 'D:\IsiTech\Depot\ClrSQL\bin\Debug\ClrSQL.dll'
 --select * from Sys.asymmetric_keys
+
+-- Etape 3 : 
 CREATE LOGIN CLRDateConvertionKeyLogin FROM ASYMMETRIC KEY CLRDateConvertionKey;
 GRANT UNSAFE ASSEMBLY TO CLRDateConvertionKeyLogin;
+
 GO
 USE AdventureWorks2017;
 GO
+-- Etape 4 : créatin du User
 CREATE USER CLRDateConvertionKeyLogin FOR LOGIN CLRDateConvertionKeyLogin;
-CREATE ASSEMBLY DateConvertAssembly FROM 'D:\Cours\CoursSQL\CLRInSQLServer\CLRInSQLServer\bin\Debug\CLRInSQLServer.dll' WITH PERMISSION_SET = SAFE;
+
+-- Etape 5 : installation de l'assembly dans AdventureWorks
+CREATE ASSEMBLY DateConvertAssembly FROM 'D:\IsiTech\Depot\ClrSQL\bin\Debug\ClrSQL.dll' WITH PERMISSION_SET = SAFE;
 GO
+
+--Etape 6 : 
 CREATE FUNCTION dbo.DateConvert (@date NVARCHAR(100), @format NVARCHAR(100))
 RETURNS NVARCHAR(100)
 AS
-     EXTERNAL NAME [DateConvertAssembly].[CLRDateConvertAssembly.DateConvertion].[DateConvert];
+     EXTERNAL NAME [DateConvertAssembly].[ClrSQL.DateConvertion].[DateConvert];
 GO
 
 -- Test
 SELECT dbo.DateConvert ('10/01/2020', 'dd-MMM-yyyy') as [Date];
 
+-- DROP
+DROP ASYMMETRIC KEY CLRDateConvertionKey
+DROP LOGIN CLRDateConvertionKeyLogin
 DROP FUNCTION [dbo].[DateConvert]
 Drop ASSEMBLY DateConvertAssembly;
+
+-- **********************************************************************
+-- **********************************************************************
 
 -- Exemple 2 
 -- https://learn.microsoft.com/fr-fr/sql/relational-databases/clr-integration-database-objects-user-defined-types/clr-user-defined-types?view=sql-server-ver16

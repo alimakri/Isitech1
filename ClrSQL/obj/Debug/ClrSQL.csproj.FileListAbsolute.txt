@@ -1,0 +1,5 @@
+D:\IsiTech\Depot\ClrSQL\bin\Debug\ClrSQL.dll
+D:\IsiTech\Depot\ClrSQL\bin\Debug\ClrSQL.pdb
+D:\IsiTech\Depot\ClrSQL\obj\Debug\ClrSQL.csproj.CoreCompileInputs.cache
+D:\IsiTech\Depot\ClrSQL\obj\Debug\ClrSQL.dll
+D:\IsiTech\Depot\ClrSQL\obj\Debug\ClrSQL.pdb
