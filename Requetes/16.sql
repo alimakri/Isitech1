@@ -37,6 +37,7 @@ GO
 SELECT dbo.DateConvert ('10/01/2020', 'dd-MMM-yyyy') as [Date];
 
 -- DROP
+DROP USER CLRDateConvertionKeyLogin
 DROP ASYMMETRIC KEY CLRDateConvertionKey
 DROP LOGIN CLRDateConvertionKeyLogin
 DROP FUNCTION [dbo].[DateConvert]
@@ -48,10 +49,16 @@ Drop ASSEMBLY DateConvertAssembly;
 -- Exemple 2 
 -- https://learn.microsoft.com/fr-fr/sql/relational-databases/clr-integration-database-objects-user-defined-types/clr-user-defined-types?view=sql-server-ver16
 USE AdventureWorks2017;  
+DROP TABLE dbo.Dessin
+Drop Type Point
+Drop ASSEMBLY Point;
+
+-- Etape 1 : installation ed l'assembly
 CREATE ASSEMBLY Point  
-FROM 'D:\Cours\CoursSQL\CLRInSQLServer\CLRInSQLServer\bin\Debug\CLRInSQLServer.dll'   
+FROM 'D:\IsiTech\Depot\ClrSQL\bin\Debug\ClrSQL.dll'   
 WITH PERMISSION_SET = SAFE; 
 
+-- Etape 2 : installation de la classe Point
 CREATE TYPE dbo.Point EXTERNAL NAME Point.[Point];  
 
 -- Test
@@ -65,3 +72,4 @@ INSERT INTO dbo.Dessin (Coord) VALUES (CAST ('1,99' AS Point));
 
 SELECT Id, coord AS PointValue FROM dbo.Dessin;  
 SELECT Id, coord.ToString() AS PointValue FROM dbo.Dessin;  
+
