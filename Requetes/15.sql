@@ -14,6 +14,9 @@ AS
 
 	-- Delete
 	delete Produit where id in (select id from #t where op='delete')
+
+	-- Ajout
+	insert Produit (Libelle, Prix) select Libelle, prix from #t where op='ajout'
 GO
 Exec EditionProduit '
 					<produits>
