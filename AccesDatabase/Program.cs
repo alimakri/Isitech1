@@ -23,22 +23,27 @@ namespace AccesDatabase
 
         private static void ClassesBases()
         {
-            var cnx = new SqlConnection();
-            cnx.ConnectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=AdventureWorks2017;Integrated Security=True";
-            cnx.Open();
+            SqlConnection cnx = new SqlConnection(){
+                ConnectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=AdventureWorks2017;Integrated Security=True"
+            };
+            SqlCommand cmd = null;
+            SqlDataReader rd = null;
 
-            var cmd = new SqlCommand();
-            cmd.Connection = cnx;
-            cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "select ProductID, Name from Production.Product";
+            cnx.Open();
+            cmd = new SqlCommand(){
+                Connection = cnx,
+                CommandType = CommandType.Text,
+                CommandText = "select ProductID, Name from Production.Product"
+            };
 
             // Mode connecté
-            SqlDataReader rd = cmd.ExecuteReader();
+            rd = cmd.ExecuteReader();
             while (rd.Read())
             {
                 Console.WriteLine("{0} - {1}", rd["ProductID"], rd["Name"]);
             }
             rd.Close();
+            rd.Dispose();
 
             cmd.CommandText = "update Production.Product set Name=Name+'_YYY' where ProductId=1";
             cmd.ExecuteNonQuery();
