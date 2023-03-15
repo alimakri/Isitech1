@@ -8,36 +8,40 @@ namespace ClrSQL
 {
     public static class CryptoSimple
     {
-        public static string Crypte(int cle, string message)
+        public static string Crypt(int key, string message)
         {
-            return CrypteDecrypte(cle, message);
-        }
-        public static string Decrypte(int cle, string message)
-        {
-            return CrypteDecrypte(cle, message);
-        }
-        private static string CrypteDecrypte(int cle, string message)
-        {
-            string resultat = ""; int d;
-            if (cle >= 0)
+            int align = 0;
+            string buffer = "";
+            
+            foreach (char c in message)
             {
-                foreach (char c in message)
-                {
-                    d = c + cle;
-                    if (d > 'Z') d -= 'Z';
-                    resultat += d;
+                align = c - key;
+                
+                if (align < 'A') {
+                    align += 26;
                 }
+                resultat += align;
             }
-            else
+            
+            return (buffer);
+        }
+        
+        public static string Decrypt(int key, string message)
+        {
+            int align = 0;
+            char hidder = 'Z';
+            string buffer = "";
+            
+            foreach (char c in message)
             {
-                foreach (char c in message)
-                {
-                    d = c - cle;
-                    if (d < 'A') d += 26;
-                    resultat += d;
+                align = c + key;
+                if (align > hidder) {
+                    align -= hidder;
                 }
+                resultat += align;
             }
-            return resultat;
+            
+            return (buffer);
         }
     }
 }
